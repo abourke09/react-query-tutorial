@@ -1,15 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Navbar from './components/Navbar';
+import Planets from './components/Planets';
+import People from './components/People';
+
+const queryClient = new QueryClient();
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Star Wars Info</h1>git pus
-      <Navbar />
-      <div className={"content"}>
+    const [page, setPage] = useState('planets')
 
-      </div>
-    </div>
+  return (
+      <QueryClientProvider client={queryClient}>
+        <div className="App">
+            <h1>Star Wars Info</h1>
+            <Navbar setPage={setPage}/>
+            <div className="content">
+               { page === 'planets' ? <Planets /> : <People />}
+             </div>
+        </div>
+      </QueryClientProvider>
+
   );
 }
 
